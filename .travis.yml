@@ -1,0 +1,19 @@
+language: node.js
+node_js:
+    - "node"
+
+sudo: required
+
+services:
+    - docker
+
+install:
+    - npm install
+
+script:
+    - npm run build
+
+after_success:
+    - docker login -u "mhk0116" -p "806aeec7-676a-470a-973d-18433a23a199"
+    - docker build -t mhk0116/eureka_back .
+    - docker push mhk0116/eureka_back
