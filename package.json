@@ -1,0 +1,20 @@
+{
+  "name": "eureka_back",
+  "version": "0.1.0",
+  "scripts": {
+    "server": "node server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\""
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.7.1",
+    "body-parser": "^1.18.3",
+    "elasticsearch": "^16.7.1",
+    "express": "^4.16.4",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  }
+}
