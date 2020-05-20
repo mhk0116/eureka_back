@@ -14,11 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/api/data", (req, res) => {
   client
     .search({
-      index: "data",
       body: {
         query: {
-          match_all: {},
+          bool: {
+            must: [{ match: { type: "visualization" } }],
+          },
         },
+        size:50
       },
     })
     .then((response) => res.send(response));
