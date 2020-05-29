@@ -17,10 +17,13 @@ app.get("/api/data", (req, res) => {
       body: {
         query: {
           bool: {
-            must: [{ match: { type: "visualization" } }],
+            should: [
+              { match: { type: "dashboard" } },
+              { match: { type: "visualization" } },
+            ],
           },
         },
-        size:50
+        size: 50,
       },
     })
     .then((response) => res.send(response));
