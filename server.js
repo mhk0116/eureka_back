@@ -4,6 +4,7 @@ var elasticsearch = require("elasticsearch");
 const converter = require("json-2-csv");
 const fs = require("fs");
 const path = require("path");
+const {spawn} = require('child_process');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -127,6 +128,14 @@ app.get("/api/log", (req, res) => {
         );
       });
     });
+});
+
+app.get("/api/cluster", (req, res) => {
+  const process = spawn("python", ["./get_cluster.py"]);
+
+  process.stdout.on("data", (data) => {
+    console.log(data.toString());
+  });
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
