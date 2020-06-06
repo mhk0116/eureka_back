@@ -60,7 +60,7 @@ def node_encode(x):
 
 def run():
 #     key = int(sys.argv[1])
-    key = int('101')
+    key = int(sys.argv[1])
 
     name = df[df['대여소ID'] == key]['대여소명'].values[0]
     address = df[df['대여소ID'] == key]['대여소주소'].values[0]
@@ -97,6 +97,8 @@ def run():
               if '.' in id_name[np.argsort(distances)[i]] else id_name[np.argsort(distances)[i]])
         node_encode('ID -'+ str(int(id_num[np.argsort(distances)[i]])))
         node_encode('주소 -'+ id_address[np.argsort(distances)[i]])
+        node_encode('일주일 평균 대여량 -'+
+                  str(int(data[data['대여소번호'] == str(int(id_num[np.argsort(distances)[i]]))].iloc[:, -7:].mean(axis=1).values[0])))
 
 
     total = np.r_[data[data['대여소번호'] == '1001'].iloc[0, 1:-30].values, new_X[0, 0, :62]]
@@ -108,7 +110,7 @@ def run():
     plt.title('추후 30일간 대여횟수 예측')
     plt.xlabel('날짜');
     plt.ylabel('대여횟수');
-    fig1.savefig('predict.png');
+    fig1.savefig('./data/img/predict.png');
 
 
 if __name__ == '__main__':
