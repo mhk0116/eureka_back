@@ -105,7 +105,9 @@ def run():
     ticks = [columns[i] for i in np.arange(1, len(columns), 30)] + ['2019-12-23']
 
     fig1 = plt.figure(figsize=(10, 8));
-    plt.plot(total);
+    # plt.plot(total);
+    plt.plot(np.arange(0, len(total[:-30])), total[:-30], color='b');
+    plt.plot(np.arange(len(total[:-30]), len(total)), total[-30:], color='r')
     plt.xticks(np.arange(0, len(total), 30), ticks, rotation=45);
     plt.title('추후 30일간 대여횟수 예측')
     plt.xlabel('날짜');
