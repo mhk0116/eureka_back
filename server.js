@@ -131,12 +131,9 @@ app.get("/api/log", (req, res) => {
 });
 
 app.get("/api/cloud", (req, res) => {
-  let fs = require('fs');
-  let lines = fs.readFileSync('따릉이 명소.csv').toString().split("\n");
-  lines.pop(lines.length-1);
-//   for(i in array) {
-//     console.log(array[i]);
-// }
+  let name = req.query.name;
+  let lines = fs.readFileSync(`./data/명소_${name}.csv`).toString().split("\n");
+  lines.pop(lines.length - 1);
   res.send(lines);
 });
 
