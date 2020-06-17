@@ -93,12 +93,11 @@ def run():
 
     node_encode('가까운 대여소')
     for i in range(5):
-        node_encode(str(i+1) + ':' + id_name[np.argsort(distances)[i]].split('.')[1].lstrip() \
+        node_encode(id_name[np.argsort(distances)[i]].split('.')[1].lstrip() \
               if '.' in id_name[np.argsort(distances)[i]] else id_name[np.argsort(distances)[i]])
-        node_encode('ID -'+ str(int(id_num[np.argsort(distances)[i]])))
-        node_encode('주소 -'+ id_address[np.argsort(distances)[i]])
-        node_encode('일주일 평균 대여량 -'+
-                  str(int(data[data['대여소번호'] == str(int(id_num[np.argsort(distances)[i]]))].iloc[:, -7:].mean(axis=1).values[0])))
+        node_encode(str(int(id_num[np.argsort(distances)[i]])))
+        node_encode(id_address[np.argsort(distances)[i]])
+        node_encode(str(int(data[data['대여소번호'] == str(int(id_num[np.argsort(distances)[i]]))].iloc[:, -7:].mean(axis=1).values[0])))
 
 
     total = np.r_[data[data['대여소번호'] == '1001'].iloc[0, 1:-30].values, new_X[0, 0, :62]]

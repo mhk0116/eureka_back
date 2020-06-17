@@ -29,7 +29,7 @@ app.get("/api/data", (req, res) => {
             ],
           },
         },
-        size: 50,
+        size: 200,
       },
     })
     .then((response) => res.send(response));
