@@ -174,4 +174,38 @@ app.get("/api/trend", (req, res) => {
 
 });
 
+app.get("/api/rent", (req,res) => {
+  const lines = fs.readFileSync('./data/대여소번호.csv').toString().split('\n');
+
+  const contents = [];
+  let i = 0;
+
+  while(i<lines.length-2){
+      let csvContents = lines[i+1];
+      let splitContents = csvContents.split(',')
+
+      let rentalInfo = {
+          district : splitContents[0],
+          rentalNo : splitContents[1],
+          rentalName : splitContents[2].split('.')[splitContents[2].split('.').length-1].replace(/^\s+|\s+$/g,'')
+      };
+      contents.push(rentalInfo);
+
+      i++;
+  };
+
+  const filterItems = (query) => {
+      return contents.filter((el) =>
+          el.rentalName.indexOf(query) > -1 ||
+          el.rentalNo.indexOf(query) > -1
+          );
+  };
+  const result = filterItems(req.query.searchKeyword);
+  if(result.length>100){
+    res.send(result.slice(0,100));
+  }else{
+    res.send(result);
+  };
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
